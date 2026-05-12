@@ -21,6 +21,7 @@ env/
 build/
 develop-eggs/
 dist/
+.deb-build/
 downloads/
 eggs/
 .eggs/
@@ -33,7 +34,7 @@ var/
 .installed.cfg
 *.egg
 .venv/
-zayde_monitor.egg-info/
+gschemas.compiled
 
 .vscode/
 .buildconfig

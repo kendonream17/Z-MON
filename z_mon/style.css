@@ -1,0 +1,89 @@
+/* button {
+    background-color: lightblue;
+} */
+/* button:active {
+    background-color: #1bd902;
+  }
+  button:hover {
+    background-color: #9130a9;
+  } */
+
+/* button {
+  background-image: image(rgba(246,246,246,0.1));
+} */
+
+button#kill_button:hover {
+  /* background-color: rgba(153, 204, 255,0.2); */
+	border: 1px rgb(255, 0, 0) solid;
+}
+
+button#record_start:hover , button#record_pause:hover {
+  /* background-color: rgba(153, 204, 255,0.2); */
+	border: 1px rgb(241, 163, 37) solid;
+}
+
+
+#sidepane_box button:hover {
+  background-image: image(rgba(246,246,246,0.1));
+	background-color: rgba(153, 204, 255,0.2);
+	border: 1px rgba(100, 210, 255,1) solid;
+}
+
+.task-page {
+  background-color: @theme_base_color;
+}
+
+.task-page-title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.task-page treeview {
+  border-top: 1px solid alpha(@theme_fg_color, 0.12);
+}
+
+.task-page button {
+  min-height: 28px;
+  padding: 3px 10px;
+}
+
+.settings-key {
+  font-weight: 600;
+}
+
+.task-shell {
+  border-top: 1px solid alpha(@theme_fg_color, 0.10);
+}
+
+.task-sidebar {
+  background-color: alpha(@theme_fg_color, 0.04);
+  border-right: 1px solid alpha(@theme_fg_color, 0.12);
+  padding: 8px;
+}
+
+.nav-button {
+  min-height: 34px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background-image: none;
+}
+
+.nav-button.selected {
+  background-color: alpha(@theme_selected_bg_color, 0.18);
+  border-color: alpha(@theme_selected_bg_color, 0.35);
+}
+
+.command-bar {
+  border-bottom: 1px solid alpha(@theme_fg_color, 0.10);
+}
+
+.command-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+/* #sidepane_box button:active {
+  background-image: image(rgba(246,246,246,0.1));
+	background-color: rgba(153, 204, 255,1);
+	border: 1px rgba(100, 210, 255,1) solid;
+} */

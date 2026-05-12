@@ -10,7 +10,7 @@ README_PATH = PROJECT_ROOT / "README.md"
 def get_data_files():
     return [
         (
-            "/usr/share/zayde-monitor/glade_files",
+            "/usr/share/z-mon/glade_files",
             [
                 "glade_files/disk.glade",
                 "glade_files/diskSidepane.glade",
@@ -18,34 +18,34 @@ def get_data_files():
                 "glade_files/gpuSidepane.glade",
                 "glade_files/net.glade",
                 "glade_files/netSidepane.glade",
-                "glade_files/zayde_monitor.glade",
+                "glade_files/z_mon.glade",
                 "glade_files/filter_dialog.glade",
             ],
         ),
         (
-            "/usr/share/zayde-monitor/icons",
+            "/usr/share/z-mon/icons",
             [
-                "icons/ZaydeMonitor.png",
+                "icons/Z-MON.png",
                 "icons/choose_color.png",
                 "icons/hide.png",
                 "icons/reset-color.png",
                 "icons/show.png",
             ],
         ),
-        ("/usr/share/doc/zayde-monitor", ["AUTHORS", "README.md", "LICENSE"]),
-        ("/usr/share/applications", ["zayde-monitor.desktop"]),
+        ("/usr/share/doc/z-mon", ["AUTHORS", "README.md", "LICENSE"]),
+        ("/usr/share/applications", ["z-mon.desktop"]),
         (
             "/usr/share/glib-2.0/schemas",
-            ["com.github.kendonream.zaydemonitor.gschema.xml"],
+            ["com.github.kendonream17.zmon.gschema.xml"],
         ),
     ]
 
 
 setup(
-    name="zayde-monitor",
+    name="z-mon",
     version="1.0.0",
     description="System Monitor With UI Like Windows",
-    url="https://www.Zaydeindustries.com",
+    url="https://github.com/kendonream17/Z-MON",
     author="Kendon Ream",
     author_email="Kendonream@gmail.com",
     license="BSD-3-Clause",
@@ -63,10 +63,10 @@ setup(
     packages=find_packages(exclude=["*.__pycache__", "*.tests", "*.tests.*", "tests", "tests.*"]),
     entry_points={
         "console_scripts": [
-            "zayde-monitor=zayde_monitor.zayde_monitor:start",
-            "zayde-monitor.set_default=zayde_monitor.theme_setter:set_theme_default",
-            "zayde-monitor.set_light=zayde_monitor.theme_setter:set_theme_light",
-            "zayde-monitor.set_dark=zayde_monitor.theme_setter:set_theme_dark",
+            "z-mon=z_mon.z_mon:start",
+            "z-mon.set_default=z_mon.theme_setter:set_theme_default",
+            "z-mon.set_light=z_mon.theme_setter:set_theme_light",
+            "z-mon.set_dark=z_mon.theme_setter:set_theme_dark",
         ]
     },
 )

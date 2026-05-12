@@ -61,7 +61,7 @@ would ***"String1 in String2"*** and if regex is **ON** regex match would be per
 
 ### Add, Save and Delete
 - A Enter and click on "Add" button will put the filled entry to the list.
-- To make the change appear in the Process Tab immediately after adding entries then Save them with ***Save*** Button. Otherwise the changes will only appear on the next time of spawing the zayde-monitor.
+- To make the change appear in the Process Tab immediately after adding entries then Save them with ***Save*** Button. Otherwise the changes will only appear on the next time of spawing the z-mon.
 - Entries can be deleted by "delete" button but **the entry ",root,:1" can not be deleted.**
 
 ### Keywords For Various Desktop Environments:
@@ -82,19 +82,19 @@ In case of filtering out the processes, the parent and the hierarchy get changes
 ---
 
 ## Process LOG Record/Plot
-The Process metrics such as CPU,rCPU and Memory etc. can be recorded and also it can be visualised in graphical form using zayde-monitor.
+The Process metrics such as CPU, Memory, DiskRead, and DiskWrite can be recorded and visualised in graphical form using z-mon.
 
 ![Screenshot from 2021-04-15 22-21-02](https://user-images.githubusercontent.com/48773008/114908224-849ae400-9e39-11eb-984f-dc39d86dccb5.png)
 
 ### Record
-Using the red toggle button at the bottom right corner, recording can be started for the **selected process**. CPU, Memory and Disk details will be stored in **<process_name_\<date and time\>.csv** file at **$HOME/zayde_monitor_log** directory.
+Using the red toggle button at the bottom right corner, recording can be started for the **selected process**. CPU, Memory and Disk details will be stored in **<process_name_\<date and time\>.csv** file at **$HOME/z_mon_log** directory.
 
 Recording can be paused using the pause button near the Record button.
 
 ### Log Plot (data visulisation)
-It can be accessed from **Menu->Tools->Log Plot**. A Browse File window will spawned using which the file in **$HOME/zayde_monitor_log** can be selected after which the Graphical Window will pop up to show data.
+It can be accessed from **Menu->Tools->Log Plot**. A Browse File window will spawned using which the file in **$HOME/z_mon_log** can be selected after which the Graphical Window will pop up to show data.
 
-***Note**: For visualising the data, matplotlib(python3-matplotlib) is used. Since the matplotlib download size is more, to reduce the overall standalone zayde-monitor size, it has not been including as dependancy and will not get install automatically. In case you want to use LOG_PLOT, install with pip3 or package manager:*
+***Note**: For visualising the data, matplotlib(python3-matplotlib) is used. Since the matplotlib download size is more, to reduce the overall standalone z-mon size, it has not been including as dependancy and will not get install automatically. In case you want to use LOG_PLOT, install with pip3 or package manager:*
 ```
 sudo apt install python3-matplotlib   OR    pip3 install matplotlib
 ```
@@ -112,32 +112,17 @@ For a on going recording, to use the Log_Plot, first pause to flush the contents
 #### Each column
 - Pid : Unique Process Id for the process
 - Name  : Name of the process
-- ***rCPU :** The overall CPU utilisation of the parent + CPU utilisation of all of its children and children of child being a recursive value, for the leaf process the CPU and rCPU would be same.
-
-  Example: Process FireFox
-
-  The rCPU for the FireFox will be the sum of all the CPU utilisations of all its children (web contents) and their rCPU and CPU column are same as they don't have children.
-
-  FireFox_rCPU = FireFox_CPU + All_child_CPU : 1.4 + 0.6 + 0.1 + 0.1 + 0.4 + 0.1 + 0.6 +0.1 = 3.4
-
-  ![image](https://user-images.githubusercontent.com/48773008/108231171-7f862500-7167-11eb-8616-01d662342d14.png)
-
 - CPU : CPU utilisation for that process
-- ***rMemory :** Recursive Memory utilisation calculated similarily as rCPU. This gives a better idea as to how much a process is using the memory.
-
-  In the above example the "FireFox" uses 547.4 MiB as only one process while as a whole with child it uses 3039 MiB which is the real truth.
-- Memory : The Memory Utilisation of the process which solely belongs to the process. Calculated as **Resident_Memory - Shared_Memory = Memory util of the process**.
+- Memory : Resident memory currently held by the process. This matches the value used for sorting the visible Memory column.
 - DiskRead : The disk read speed at which the process is doing IO operations.
 - DiskWrite : The disk write speed at which the process is doing IO operations.
-- ***rDiskRead:** Recursive Disk Read calculated similar to rMemory and rCPU.
-- ***rDiskWrite:** Recursive Disk Write similar to rDiskRead.
 - Resident Memory: It is the actual memory that is in the physical memory associated to the given process (not only this process also includes the shared memory with other processes).
 - Shared : Shared memory with other processes.
 - Owner : User to whom the process belongs.
 - Command : The command corresponding to the process.
 
-#### Killer
-- It is a process kill button. Pressing it would cause the process to get terminated after asking for a confirmation.
+#### End task
+- It is a process termination button. Pressing it asks for confirmation, then terminates the selected process.
 ![image](https://user-images.githubusercontent.com/48773008/108235398-cbd36400-716b-11eb-8b78-36a883a98a8e.png)
 ![image](https://user-images.githubusercontent.com/48773008/108235101-86169b80-716b-11eb-94f3-0fa203fd0c2a.png)
 
