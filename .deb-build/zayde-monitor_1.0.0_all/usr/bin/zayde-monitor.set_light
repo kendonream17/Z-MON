@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec python3 -c 'from zayde_monitor.theme_setter import set_theme_light; set_theme_light()' "$@"

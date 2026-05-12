@@ -1,0 +1,10 @@
+include AUTHORS
+include LICENSE
+include README.md
+include zayde-monitor.desktop
+recursive-include glade_files *.glade
+recursive-include zayde_monitor *
+recursive-include icons *.png
+prune zayde_monitor/__pycache__
+global-exclude __pycache__
+global-exclude *.py[cod]

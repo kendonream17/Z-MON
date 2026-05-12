@@ -1,0 +1,7 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.unittest]
+start-dir = "tests"
+top-level-directory = "."

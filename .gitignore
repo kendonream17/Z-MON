@@ -1,0 +1,39 @@
+exp.py
+exp.glade
+exp.glade~
+netSidepane.glade~ 
+disk.glade~
+taskManager.glade~
+taskManger.py
+taskmanager.spec
+netSidepane.glade~
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+#glade autosaved
+glade_files/*.glade\~
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+zayde_monitor.egg-info/
+
+.vscode/
+.buildconfig

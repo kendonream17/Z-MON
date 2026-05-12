@@ -1,0 +1,11 @@
+Package: zayde-monitor
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: all
+Maintainer: Kendon Ream <Kendonream@gmail.com>
+Depends: python3, python3-psutil, python3-gi, python3-gi-cairo, python3-cairo, gir1.2-gtk-3.0, gir1.2-wnck-3.0, lshw, dmidecode, pkexec | policykit-1
+Homepage: https://www.zaydeindustries.com
+Description: System monitor with a Windows-style interface
+ Zayde Monitor is a Linux system monitor with CPU, memory, disk,
+ network, GPU, and process views in a task-manager style interface.
