@@ -14,5 +14,10 @@ jobs:
           python-version: "3.11"
       - name: Compile Python sources
         run: python -m compileall z_mon
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y python3-gi python3-gi-cairo libgirepository1.0-dev
+      - name: Install Python dependencies
+        run: pip install pycairo PyGObject
       - name: Run unit tests
-        run: python -m unittest discover -s tests -t .
+        run: python -m unittest discover -s tests -t .   
+     
