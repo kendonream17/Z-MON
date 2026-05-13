@@ -418,19 +418,14 @@ def _page_shell(title: str) -> tuple[g.Box, g.Box]:
     header.set_margin_start(12)
     header.set_margin_end(12)
     header.set_margin_top(12)
-    label = g.Label(label=title)
-    label.set_halign(g.Align.START)
-    label.get_style_context().add_class("task-page-title")
-    header.pack_start(label, True, True, 0)
+    spacer = g.Label(label="")
+    header.pack_start(spacer, True, True, 0)
     page.pack_start(header, False, False, 0)
     return page, header
 
 
-def _append_tree_page(notebook: g.Notebook, title: str, store: g.ListStore, columns: list[tuple[str, int]]) -> tuple[g.Box, g.TreeView, g.Button]:
+def _append_tree_page(notebook: g.Notebook, title: str, store: g.ListStore, columns: list[tuple[str, int]]) -> tuple[g.Box, g.TreeView]:
     page, header = _page_shell(title)
-    refresh = g.Button(label="Refresh")
-    refresh.get_style_context().add_class("app-button")
-    header.pack_end(refresh, False, False, 0)
     scroller = g.ScrolledWindow()
     scroller.set_hexpand(True)
     scroller.set_vexpand(True)
@@ -439,7 +434,7 @@ def _append_tree_page(notebook: g.Notebook, title: str, store: g.ListStore, colu
     page.pack_start(scroller, True, True, 0)
     notebook.append_page(page, g.Label(label=title))
     page.show_all()
-    return page, tree, refresh
+    return page, tree
 
 
 class TaskPages:
@@ -460,49 +455,43 @@ class TaskPages:
         self.services_store = _make_store((str, str, str, str, str))
         self.diagnostics_store = _make_store((str, str, str))
 
-        _page, _tree, refresh = _append_tree_page(
+        _page, _tree = _append_tree_page(
             notebook,
             "App history",
             self.app_history_store,
             [("Name", 0), ("CPU time", 1), ("Reads", 2), ("Writes", 3)],
         )
-        refresh.connect("clicked", lambda _button: self.refresh_app_history())
-        _page, _tree, refresh = _append_tree_page(
+        _page, _tree = _append_tree_page(
             notebook,
             "Startup apps",
             self.startup_store,
             [("Name", 0), ("Type", 1), ("Status", 2), ("Command", 3), ("Source", 4)],
         )
-        refresh.connect("clicked", lambda _button: self.refresh_startup())
-        _page, _tree, refresh = _append_tree_page(
+        _page, _tree = _append_tree_page(
             notebook,
             "Users",
             self.users_store,
             [("User", 0), ("Session", 1), ("Processes", 2), ("CPU", 3), ("Memory", 4)],
         )
-        refresh.connect("clicked", lambda _button: self.refresh_users())
-        _page, self.details_tree, refresh = _append_tree_page(
+        _page, self.details_tree = _append_tree_page(
             notebook,
             "Details",
             self.details_store,
             [("PID", 0), ("Name", 1), ("Status", 2), ("User", 3), ("CPU", 4), ("Memory", 5), ("Nice", 6), ("Command", 7)],
         )
-        refresh.connect("clicked", lambda _button: self.refresh_details())
-        _page, self.services_tree, refresh = _append_tree_page(
+        _page, self.services_tree = _append_tree_page(
             notebook,
             "Services",
             self.services_store,
             [("Unit", 0), ("Load", 1), ("Active", 2), ("Sub", 3), ("Description", 4)],
         )
-        refresh.connect("clicked", lambda _button: self.refresh_services())
         self._append_settings_page()
-        _page, _tree, refresh = _append_tree_page(
+        _page, _tree = _append_tree_page(
             notebook,
             "Diagnostics",
             self.diagnostics_store,
             [("Backend", 0), ("Status", 1), ("Used for", 2)],
         )
-        refresh.connect("clicked", lambda _button: self.refresh_diagnostics())
         self._attach_actions()
         self.refresh_all()
 
@@ -517,10 +506,8 @@ class TaskPages:
         return None
 
     def _attach_actions(self) -> None:
-        self._add_action_button("Details", "End task", self.end_selected_process)
         self._add_action_button("Details", "Efficiency mode", self.efficiency_selected_process)
         self._add_action_button("Details", "Open file location", self.open_selected_process_location)
-        self._add_action_button("Details", "Run new task", self.run_new_task)
         self._add_action_button("Services", "Start", lambda: self.service_action("start"))
         self._add_action_button("Services", "Stop", lambda: self.service_action("stop"))
         self._add_action_button("Services", "Restart", lambda: self.service_action("restart"))

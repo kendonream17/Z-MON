@@ -114,13 +114,25 @@ def _queue_widget_graphs(widget, attributes):
         _queue_draw(getattr(widget, attribute, None))
 
 
-def _draw_graph(cr, width, height, values, maximum, color, rectangle_color, fill_alpha=0.2):
+def _draw_graph(cr, width, height, values, maximum, color, rectangle_color, fill_alpha=0.2, show_grid=True):
     scalingfactor = height / maximum if maximum else 0
 
     cr.set_source_rgba(*rectangle_color, 1)
     cr.set_line_width(3)
     cr.rectangle(0, 0, width, height)
     cr.stroke()
+
+    if show_grid and width > 0 and height > 0:
+        vertical_gap = height / 10.0
+        horizontal_gap = width / 10.0
+        cr.set_source_rgba(*color, 0.55)
+        cr.set_line_width(0.5)
+        for i in range(1, 10):
+            cr.move_to(0, i * vertical_gap)
+            cr.line_to(width, i * vertical_gap)
+            cr.move_to(i * horizontal_gap, 0)
+            cr.line_to(i * horizontal_gap, height)
+        cr.stroke()
 
     stepsize = width / 99.0
 
@@ -322,7 +334,7 @@ class MainWindow:
 
         for label, callback in (
             ("Run new task", lambda _button: self._run_new_task_dialog()),
-            ("Refresh", self.on_refresh_activate),
+            ("Refresh", self.on_global_refresh_clicked),
             ("End task", self.kill_process),
         ):
             button = g.Button(label=label)
@@ -372,6 +384,12 @@ class MainWindow:
     def _run_new_task_dialog(self):
         if hasattr(self, "task_pages"):
             self.task_pages.run_new_task()
+
+    def on_global_refresh_clicked(self, _button=None):
+        if self.notebook.get_current_page() >= 2 and hasattr(self, "task_pages"):
+            self.task_pages.refresh_visible()
+        else:
+            self.on_refresh_activate(_button)
 
     def post_init(self):
         self.grouping_for_color_profile = {
@@ -676,7 +694,7 @@ class MainWindow:
         rectangle_color = self.color_profile["cpu"][1]
         width = self.cpuSidePaneDrawArea.get_allocated_width()
         height = self.cpuSidePaneDrawArea.get_allocated_height()
-        _draw_graph(cr, width, height, self.cpuUtilArray, 100.0, color, rectangle_color, fill_alpha=0.25)
+        _draw_graph(cr, width, height, self.cpuUtilArray, 100.0, color, rectangle_color, fill_alpha=0.25, show_grid=False)
         return False
 
     def on_memSidePaneDrawArea_draw(self, dr, cr):
@@ -685,7 +703,7 @@ class MainWindow:
         rectangle_color = self.color_profile["memory"][1]
         width = self.memSidePaneDrawArea.get_allocated_width()
         height = self.memSidePaneDrawArea.get_allocated_height()
-        _draw_graph(cr, width, height, self.memUsedArray1, self.memTotal, color, rectangle_color)
+        _draw_graph(cr, width, height, self.memUsedArray1, self.memTotal, color, rectangle_color, show_grid=False)
         return False
 
 
